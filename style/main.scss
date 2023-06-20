@@ -1,0 +1,66 @@
+body {
+	font-family: sans-serif;
+	text-align: center;
+}
+
+a {
+	color: #34495e;
+	text-decoration: none
+}
+
+.header {
+	background-color: #335d92;
+	position: fixed;
+	z-index: 999;
+	height: 55px;
+	top: 0;
+	left: 0;
+	right: 0
+}
+
+.header .inner {
+	max-width: 800px;
+	box-sizing: border-box;
+	margin: 0 auto;
+	padding: 15px 5px
+}
+
+.header a {
+	color: rgba(255,255,255,.8);
+	line-height: 24px;
+	transition: color .15s ease;
+	display: inline-block;
+	vertical-align: middle;
+	font-weight: 300;
+	letter-spacing: .075em;
+	margin-right: 1.8em;
+}
+
+.header a:hover {
+	color: #fff
+}
+
+.header a.active {
+	color: #fff;
+	font-weight: 400
+}
+
+.home {
+	padding: 100px
+}
+
+.header .github {
+	color: #fff;
+	font-size: .9em;
+	margin: 0;
+	float: right
+}
+
+.em-hammer_and_wrench:before {
+  display: inline-block;
+  content: "🛠️";
+}
+
+.parallax {
+	background-image: url('/images/lsd-astro.jpeg')
+}

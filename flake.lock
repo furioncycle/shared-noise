@@ -1,5 +1,21 @@
 {
   "nodes": {
+    "cargo-leptos": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1689099891,
+        "narHash": "sha256-J6i66dWW6YRGap+r0cbqxpw6GwgNxwRx/32mTcQ4Gio=",
+        "owner": "benwis",
+        "repo": "cargo-leptos",
+        "rev": "982416979ab0562c1a7f851c4f9f2acf4515fa02",
+        "type": "github"
+      },
+      "original": {
+        "owner": "benwis",
+        "repo": "cargo-leptos",
+        "type": "github"
+      }
+    },
     "flake-utils": {
       "inputs": {
         "systems": "systems"
@@ -54,6 +70,7 @@
     },
     "root": {
       "inputs": {
+        "cargo-leptos": "cargo-leptos",
         "flake-utils": "flake-utils",
         "nixpkgs": "nixpkgs",
         "rust-overlay": "rust-overlay"

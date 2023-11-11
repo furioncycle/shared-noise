@@ -10,7 +10,7 @@ async fn main() -> std::io::Result<()> {
     let conf = get_configuration(None).await.unwrap();
     let addr = conf.leptos_options.site_addr;
     // Generate the list of routes in your Leptos App
-    let routes = generate_route_list(|cx| view! { cx, <App/> });
+    let routes = generate_route_list(App);
 
     HttpServer::new(move || {
         let leptos_options = &conf.leptos_options;
@@ -18,11 +18,7 @@ async fn main() -> std::io::Result<()> {
 
         App::new()
             .route("/api/{tail:.*}", leptos_actix::handle_server_fns())
-            .leptos_routes(
-                leptos_options.to_owned(),
-                routes.to_owned(),
-                |cx| view! { cx, <App/> },
-            )
+            .leptos_routes(leptos_options.to_owned(), routes.to_owned(), App)
             .service(Files::new("/", site_root))
         //.wrap(middleware::Compress::default())
     })
@@ -31,9 +27,23 @@ async fn main() -> std::io::Result<()> {
     .await
 }
 
-#[cfg(not(feature = "ssr"))]
+#[cfg(not(any(feature = "ssr", feature = "csr")))]
 pub fn main() {
     // no client-side main function
     // unless we want this to work with e.g., Trunk for pure client-side testing
     // see lib.rs for hydration function instead
+}
+
+#[cfg(all(not(feature = "ssr"), feature = "csr"))]
+pub fn main() {
+    // a client-side main function is required for using `trunk serve`
+    // prefer using `cargo leptos serve` instead
+    // to run: `trunk serve --open --features csr`
+    use leptos::*;
+    use shared_noise::app::*;
+    use wasm_bindgen::prelude::wasm_bindgen;
+
+    console_error_panic_hook::set_once();
+
+    leptos::mount_to_body(App);
 }

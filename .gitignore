@@ -14,3 +14,4 @@ playwright/.cache/
 
 .direnv
 .sass-cache
+style/globals.css

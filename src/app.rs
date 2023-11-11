@@ -3,42 +3,32 @@ use leptos_meta::*;
 use leptos_router::*;
 
 mod routes;
-use routes::{nav::*, resume::*};
+use routes::{home::*, resume::*};
+
+// use crate::components::footer::*;
+use crate::components::header::*;
 
 #[component]
-pub fn App(cx: Scope) -> impl IntoView {
+pub fn App() -> impl IntoView {
     // Provides context that manages stylesheets, titles, meta tags, etc.
-    provide_meta_context(cx);
+    provide_meta_context();
 
     view! {
-        cx,
-
-        // injects a stylesheet into the document <head>
-        // id=leptos means cargo-leptos will hot-reload this stylesheet
         <Stylesheet id="leptos" href="/pkg/leptos_start.css"/>
-
-        // sets the document title
         <Title text="Shared Noise - Maximum Volume Yeilds Maximum Results"/>
 
-        // content for this welcome page
+        // TODO add an error page
         <Router>
-            <Nav />
+            <Header/>
             <main>
                 <Routes>
-                    <Route path="" view=|cx| view! { cx, <HomePage/> }/>
-                    <Route path="resume" view=|cx| view!{ cx, <Resume/> }/>
+                    <Route path="/" view=Home/>
+                    <Route path="/resume" view=Resume/>
+                // <Route path="/posts" view=Posts/>
+                // <Route path="/posts/:id" view=Posts/>
                 </Routes>
             </main>
+        // <Footer/>
         </Router>
-    }
-}
-
-/// Renders the home page of your application.
-#[component]
-fn HomePage(cx: leptos::Scope) -> impl IntoView {
-
-    view! { cx,
-        <div class="parallax">
-        </div>                
     }
 }

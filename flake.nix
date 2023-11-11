@@ -3,16 +3,17 @@
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
-    rust-overlay.url = "github:oxalica/rust-overlay";
-    rust-overlay.inputs.nixpkgs.follows = "nixpkgs";
-    
+    rust-overlay = {
+      url = "github:oxalica/rust-overlay";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     flake-utils.url = "github:numtide/flake-utils";
-    
+
+    # TODO - Remove once fixes are in
     cargo-leptos = {
       url = "github:benwis/cargo-leptos"; #Has fixes that are not in original for this to build
       flake = false;
     };
-
   };
   
   outputs = { self, nixpkgs, rust-overlay, flake-utils, cargo-leptos,...}: 
@@ -25,12 +26,12 @@
 
         leptos = pkgs.rustPlatform.buildRustPackage rec {
           pname = "cargo-leptos";
-          version = "0.1.8.1";
+          version = "0.2.1";
           buildFeatures = ["no_downloads"];
 
           src = cargo-leptos;
 
-          cargoSha256 = "sha256-+AjgFKhcOMY2yi49+f85NukG3NBkNFDx3OrNQxvs31o=";
+          cargoSha256 = "sha256-I/9wPgs76xjcyRXKVzkDMCE4p+AZFm27V2fcm9f0Mag=";
 
           nativeBuildInputs = [pkgs.pkg-config pkgs.openssl];
 
@@ -66,8 +67,14 @@
             pkg-config
             jq
             cachix
+            psmisc # Gives us fuser
           ];
         };
+
+        shellHook = ''
+          alias ls=eza
+          alias find=fd
+        '';
       }
     );
 }

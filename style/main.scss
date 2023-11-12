@@ -16,6 +16,7 @@ a {
 	top: 0;
 	left: 0;
 	right: 0
+  box-shadow: 0 -6px 10px 5px rgba(0,0,0,0.5);
 }
 
 .header .inner {
@@ -63,4 +64,12 @@ a {
 
 .parallax {
 	background-image: url('/images/lsd-astro.jpeg')
+}
+
+.home {
+	border-radius: 25px;
+  background: #73AD21;
+  padding: 20px;
+  width: ;
+  height: 150px; 
 }
